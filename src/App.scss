@@ -1,0 +1,66 @@
+.App {
+  max-height: 90vh;
+  font-size: calc(10px + 2vmin);
+}
+
+.login-form {
+  padding: 5rem;
+  background-color: rgba(108, 97, 246, 0.4);
+  border-radius: 5px;
+  width: 70%;
+}
+
+.h90 {
+  height: 90vh;
+}
+
+.note {
+  padding: 1rem;
+  &:last-child {
+    border: none;
+  }
+  p,
+  h2 {
+    margin: 0;
+  }
+}
+
+.note-btn {
+  color: #777;
+  font-weight: 800;
+  top: 2px;
+  right: 2px;
+}
+
+.note-form {
+  padding: 2rem;
+}
+.add-note {
+  color: black !important;
+  &-plus {
+    font-weight: 700;
+    font-size: 1.5rem;
+  }
+}
+
+.btn-block-r {
+  display: initial;
+}
+
+@media screen and (max-width: 768px) {
+  .login-form {
+    width: 90%;
+    padding: 2rem;
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .login-form {
+    width: 100%;
+    padding: 1rem;
+  }
+  .btn-block-r {
+    display: block;
+    width: 100%;
+  }
+}
