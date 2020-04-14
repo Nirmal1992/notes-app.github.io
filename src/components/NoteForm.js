@@ -1,6 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { v4 as uuidv4 } from 'uuid';
+import { connect } from 'react-redux';
+import { mapStateToProps, mapDispatchToProps } from '../redux/reduxMapper';
 
-const NoteForm = ({ addNote }) => {
+const NoteForm = ({
+  addNote,
+  selectNote,
+  editNote,
+  formState,
+  addNewNoteState
+}) => {
   const initialState = { title: '', body: '', id: null };
   const [state, setState] = useState(initialState);
 
@@ -9,10 +18,22 @@ const NoteForm = ({ addNote }) => {
     setState({ ...state, [name]: value });
   };
 
+  useEffect(() => {
+    selectNote && setState(selectNote);
+  }, [selectNote]);
+
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!state.title || !state.body) return;
-    addNote(state);
+    let note = state;
+    if (note.id) {
+      editNote(note);
+      addNewNoteState();
+    } else {
+      note.id = uuidv4();
+      addNote(note);
+    }
+
     setState(initialState);
   };
 
@@ -41,11 +62,11 @@ const NoteForm = ({ addNote }) => {
       </div>
       <div className='justify-content-end d-flex '>
         <button type='submit' className='btn btn-primary btn-lg btn-block-r'>
-          Save
+          {formState === 'EDIT' ? 'Edit & Save' : 'Add New Note'}
         </button>
       </div>
     </form>
   );
 };
 
-export default NoteForm;
+export default connect(mapStateToProps, mapDispatchToProps)(NoteForm);
